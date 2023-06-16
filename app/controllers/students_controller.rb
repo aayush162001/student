@@ -12,7 +12,7 @@ class StudentsController < ApplicationController
         if @student.save
             redirect_to students_path
         else
-            render :new
+            render :new , status: :unprocessable_entity
         end
     end
 
@@ -36,13 +36,13 @@ class StudentsController < ApplicationController
     def destroy
         @student = Student.find(params[:id])
         @student.destroy
-        redirect_to student_path
+        redirect_to student_path,status: :see_other
     end
 
     private
 
     def student_params
-        params.require(:student).permit(:first_name,:last_name,:email)
+        params.require(:student).permit(:first_name,:last_name,:email,:date_of_birth,:contact,:address)
     end
 
 end
